@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+.yarn
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Cache
+.cache
+
+# Misc
+*.log
+.DS_Store
+
+# Yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/install-state.gz
