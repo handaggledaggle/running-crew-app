@@ -4,6 +4,18 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-brand: #FF6B35;
+  --color-brand-tint: #FFF0EB;
+  --color-brand-muted: #FDA07A;
+  --color-forest: #1B4332;
+  --color-forest-tint: #E8F5E9;
+  --color-forest-light: #a7f3d0;
+  --color-page-bg: #F7F7F7;
+  --color-ink: #1A1A1A;
+  --color-success: #16a34a;
+  --color-success-bg: #dcfce7;
+  --color-warning: #d97706;
+  --color-error-bg: #fef2f2;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);

@@ -1,7 +1,9 @@
-import { fetchNotices } from '@/app/actions';
-import FeedClient from './FeedClient';
+import { getNotices } from '@/lib/actions';
+import NoticeClient from './_notice-client';
 
-export default async function FeedPage() {
-  const noticeList = await fetchNotices();
-  return <FeedClient initialNotices={noticeList} />;
+export const dynamic = 'force-dynamic';
+
+export default async function NoticeFeedPage() {
+  const notices = await getNotices();
+  return <NoticeClient initialNotices={notices} />;
 }

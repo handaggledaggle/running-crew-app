@@ -1,9 +1,11 @@
-import { fetchMeetups, fetchParticipants } from '@/app/actions';
-import AttendanceClient from './AttendanceClient';
+import { getLatestMeeting, getParticipants } from '@/lib/actions';
+import AttendanceClient from './_attendance-client';
+
+export const dynamic = 'force-dynamic';
 
 export default async function AttendancePage() {
-  const meetups = await fetchMeetups();
-  const meetup = meetups[0] ?? null;
-  const participantList = meetup ? await fetchParticipants(meetup.id) : [];
-  return <AttendanceClient meetup={meetup} initialParticipants={participantList} />;
+  const meeting = await getLatestMeeting();
+  const members = meeting ? await getParticipants(meeting.id) : [];
+
+  return <AttendanceClient meeting={meeting} initialMembers={members} />;
 }

@@ -5,5 +5,5 @@ import * as schema from './schema';
 export function getDb() {
   const url = process.env.DATABASE_URL;
   if (!url) return null;
-  return drizzle(neon(url), { schema });
+  return drizzle({ client: neon(url), schema });
 }
