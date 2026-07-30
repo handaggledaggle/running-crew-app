@@ -1,33 +1,25 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, ClipboardList, Activity, Bell } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import { Search, BarChart2, Bell, CheckSquare } from 'lucide-react';
 
-const NAV_ITEMS: { href: string; icon: LucideIcon; label: string }[] = [
-  { href: '/jiyeok-peiseubyeol-moim-tamsaek-mich-pilteo', icon: Search, label: '탐색' },
-  { href: '/chamga-sincheong-mich-chwiso', icon: ClipboardList, label: '내 모임' },
-  { href: '/reoning-girok-ipryeok-mich-nujeok-geori-tonggye', icon: Activity, label: '기록' },
-  { href: '/keuru-gongji-pideu-mich-pusi-alrim', icon: Bell, label: '공지' },
+const NAV_ITEMS = [
+  { href: '/jiyeok-peiseubyeol-moim-tamsaek-mich-pilteo', label: '탐색', Icon: Search },
+  { href: '/reoning-hu-girok-ipryeokgwa-nujeok-geori-pyosi', label: '기록', Icon: BarChart2 },
+  { href: '/keuru-gongji-pideu', label: '크루', Icon: Bell },
+  { href: '/chamgaja-myeongdan-johoe-mich-chulseok-chekeu', label: '출석', Icon: CheckSquare },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border flex z-50" style={{maxWidth: 480, margin: '0 auto'}}>
-      {NAV_ITEMS.map(item => {
-        const active = pathname === item.href;
-        const Icon = item.icon;
-        return (
-          <Link key={item.href} href={item.href}
-            className={`flex-1 flex flex-col items-center py-3 gap-0.5 text-xs font-medium transition-colors ${
-              active ? 'text-brand' : 'text-muted-foreground'
-            }`}>
-            <Icon className="w-5 h-5" />
-            <span>{item.label}</span>
-          </Link>
-        );
-      })}
+    <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#fff', borderTop: '1px solid #E5E5E5', display: 'flex', zIndex: 100 }}>
+      {NAV_ITEMS.map((item) => (
+        <Link key={item.href} href={item.href} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px 0 12px', textDecoration: 'none', color: pathname === item.href ? 'var(--primary)' : '#6B6B6B', fontWeight: pathname === item.href ? 700 : 400, fontSize: 12, gap: 2 }}>
+          <item.Icon size={22} />
+          {item.label}
+        </Link>
+      ))}
     </nav>
   );
 }

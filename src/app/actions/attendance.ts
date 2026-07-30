@@ -1,33 +1,19 @@
 'use server';
-import { getDb } from '@/lib/db';
-import { meetingParticipants } from '@/lib/schema';
+
+import { db } from '@/db';
+import { participant } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
-export async function toggleAttendance(participantId: number, currentStatus: boolean) {
+export async function markAttendance(participantId: number, attended: boolean) {
   try {
-    const db = getDb();
     await db
-      .update(meetingParticipants)
-      .set({ attended: !currentStatus })
-      .where(eq(meetingParticipants.id, participantId));
-    revalidatePath('/chamgaja-myeongdan-johoe-mich-chulseok-chekeu-ri');
+      .update(participant)
+      .set({ attended })
+      .where(eq(participant.id, participantId));
+    revalidatePath('/chamgaja-myeongdan-johoe-mich-chulseok-chekeu');
     return { success: true };
   } catch {
-    return { success: true };
-  }
-}
-
-export async function markAllAttended(meetingId: number) {
-  try {
-    const db = getDb();
-    await db
-      .update(meetingParticipants)
-      .set({ attended: true })
-      .where(eq(meetingParticipants.meetingId, meetingId));
-    revalidatePath('/chamgaja-myeongdan-johoe-mich-chulseok-chekeu-ri');
-    return { success: true };
-  } catch {
-    return { success: true };
+    return { error: 'DB 오류가 발생했습니다.' };
   }
 }
