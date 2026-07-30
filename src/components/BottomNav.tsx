@@ -1,37 +1,30 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { Search, ClipboardList, Activity, Bell } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-const NAV = [
-  { href: '/jiyeok-peiseubyeol-moim-tamsaek-mich-pilteo', icon: 'Q', label: '탐색' },
-  { href: '/moim-gaeseol-naljja-jangso-peiseu-jeongwon-seolj', icon: '+', label: '개설' },
-  { href: '/chamgaja-myeongdan-johoe-mich-chulseok-chekeu-ri', icon: '#', label: '출석' },
-  { href: '/reoning-girok-ipryeokgwa-nujeok-geori-tonggye', icon: '%', label: '기록' },
-  { href: '/keuru-gongji-pideu', icon: '!', label: '공지' },
+const NAV_ITEMS: { href: string; icon: LucideIcon; label: string }[] = [
+  { href: '/jiyeok-peiseubyeol-moim-tamsaek-mich-pilteo', icon: Search, label: '탐색' },
+  { href: '/chamga-sincheong-mich-chwiso', icon: ClipboardList, label: '내 모임' },
+  { href: '/reoning-girok-ipryeok-mich-nujeok-geori-tonggye', icon: Activity, label: '기록' },
+  { href: '/keuru-gongji-pideu-mich-pusi-alrim', icon: Bell, label: '공지' },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
   return (
-    <nav
-      className="fixed bottom-0 bg-white border-t border-border flex z-[100]"
-      style={{ left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: 430 }}
-    >
-      {NAV.map((n) => {
-        const active = pathname === n.href;
+    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border flex z-50" style={{maxWidth: 480, margin: '0 auto'}}>
+      {NAV_ITEMS.map(item => {
+        const active = pathname === item.href;
+        const Icon = item.icon;
         return (
-          <Link
-            key={n.href}
-            href={n.href}
-            className={cn(
-              'flex-1 flex flex-col items-center no-underline',
-              active ? 'text-brand font-bold' : 'text-muted-foreground font-normal',
-            )}
-            style={{ padding: '8px 0' }}
-          >
-            <span style={{ fontSize: 22 }}>{n.icon}</span>
-            <span style={{ fontSize: 11, marginTop: 2 }}>{n.label}</span>
+          <Link key={item.href} href={item.href}
+            className={`flex-1 flex flex-col items-center py-3 gap-0.5 text-xs font-medium transition-colors ${
+              active ? 'text-brand' : 'text-muted-foreground'
+            }`}>
+            <Icon className="w-5 h-5" />
+            <span>{item.label}</span>
           </Link>
         );
       })}

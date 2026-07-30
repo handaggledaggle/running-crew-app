@@ -1,7 +1,5 @@
-import { getMeetings } from '@/lib/actions';
-import ExploreClient from './_explore-client';
-
-export const dynamic = 'force-dynamic';
+import { getMeetings } from '@/app/actions/meetings';
+import ExploreClient from './ExploreClient';
 
 export default async function ExplorePage() {
   const meetings = await getMeetings();

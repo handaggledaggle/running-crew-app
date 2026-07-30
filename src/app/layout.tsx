@@ -3,8 +3,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "크루런 – 러닝 모임 앱",
-  description: "동네 러닝 모임을 쉽게 찾고 참가하세요",
+  title: "동네 러닝 모임",
+  description: "내 페이스에 맞는 동네 러닝 모임을 찾고 참가하세요",
 };
 
 export default function RootLayout({

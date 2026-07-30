@@ -1,110 +1,84 @@
-export const MEETINGS = [
-  {
-    id: '1',
-    title: '한강 저녁 러닝',
-    date: '2026-07-31',
-    time: '19:30',
-    location: '여의도 한강공원 물빛광장',
-    district: '영등포',
-    pace: '5~6분/km',
-    capacity: 12,
-    joined: 7,
-    leader: '김달리',
-    memo: '초보자 환영! 5km 코스 예정',
-  },
-  {
-    id: '2',
-    title: '서울숲 새벽 크루런',
-    date: '2026-08-01',
-    time: '06:00',
-    location: '서울숲 2문 앞',
-    district: '성동',
-    pace: '4~5분/km',
-    capacity: 8,
-    joined: 8,
-    leader: '이빨리',
-    memo: '페이스 유지 필수',
-  },
-  {
-    id: '3',
-    title: '올림픽공원 주말런',
-    date: '2026-08-02',
-    time: '08:00',
-    location: '올림픽공원 평화의 문',
-    district: '송파',
-    pace: '6~7분/km',
-    capacity: 15,
-    joined: 5,
-    leader: '박천천',
-    memo: '10km 코스, 천천히 완주',
-  },
-  {
-    id: '4',
-    title: '북한산 트레일런',
-    date: '2026-08-03',
-    time: '07:30',
-    location: '북한산 우이역 입구',
-    district: '강북',
-    pace: '7분+/km',
-    capacity: 10,
-    joined: 3,
-    leader: '최산악',
-    memo: '산악화 권장',
-  },
+export type Pace = '초보' | '중급' | '고급';
+export type District = '강남구' | '서초구' | '마포구' | '송파구' | '용산구';
+
+export interface Meeting {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  district: District;
+  pace: Pace;
+  paceMin: string;
+  capacity: number;
+  participants: number;
+  description: string;
+  leader: string;
+  leaderAvatar: string;
+}
+
+export interface Participant {
+  id: string;
+  name: string;
+  avatar: string;
+  attended: boolean;
+}
+
+export interface RunRecord {
+  id: string;
+  date: string;
+  distance: number;
+  duration: number;
+  pace: string;
+}
+
+export interface Notice {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  likes: number;
+  comments: number;
+  isPinned?: boolean;
+}
+
+export const MEETINGS: Meeting[] = [
+  { id: 'm1', title: '한강 공원 새벽 러닝', date: '2026-08-03', time: '06:00', location: '여의도 한강공원 이벤트광장', district: '마포구', pace: '중급', paceMin: '6:00', capacity: 15, participants: 9, description: '여의도 한강변을 5km 달리는 모임입니다. 스트레칭 후 출발!', leader: '김러닝', leaderAvatar: 'KR' },
+  { id: 'm2', title: '강남 코어 러닝 크루', date: '2026-08-05', time: '07:00', location: '강남역 1번 출구 앞', district: '강남구', pace: '고급', paceMin: '5:00', capacity: 10, participants: 7, description: '강남 근처 코스를 빠른 페이스로 7km 달립니다.', leader: '박스피드', leaderAvatar: 'PS' },
+  { id: 'm3', title: '초보 러너 모여라!', date: '2026-08-06', time: '18:30', location: '서울숲 정문', district: '용산구', pace: '초보', paceMin: '7:30', capacity: 20, participants: 12, description: '처음 달리는 분들 환영해요! 3km 천천히 같이 달려요.', leader: '이조이', leaderAvatar: 'IJ' },
+  { id: 'm4', title: '서초 저녁 러닝', date: '2026-08-07', time: '19:00', location: '반포한강공원 세빛둥둥섬', district: '서초구', pace: '중급', paceMin: '6:30', capacity: 12, participants: 4, description: '반포 한강변 야경 보며 달리기! 5km 코스.', leader: '최리버', leaderAvatar: 'CR' },
 ];
 
-export const DISTRICTS = ['전체', '영등포', '성동', '송파', '강북', '강남', '마포'];
-export const PACES = ['전체', '4~5분/km', '5~6분/km', '6~7분/km', '7분+/km'];
-
-export const MEMBERS = [
-  { id: 'm1', name: '김달리', avatar: 'A', attended: true },
-  { id: 'm2', name: '이속도', avatar: 'B', attended: true },
-  { id: 'm3', name: '박훈련', avatar: 'C', attended: false },
-  { id: 'm4', name: '최마라', avatar: 'D', attended: true },
-  { id: 'm5', name: '정스피드', avatar: 'E', attended: false },
-  { id: 'm6', name: '강러너', avatar: 'F', attended: true },
-  { id: 'm7', name: '윤달림', avatar: 'G', attended: null },
+export const PARTICIPANTS: Participant[] = [
+  { id: 'p1', name: '김민준', avatar: 'KM', attended: true },
+  { id: 'p2', name: '이서연', avatar: 'LS', attended: false },
+  { id: 'p3', name: '박지훈', avatar: 'PJ', attended: true },
+  { id: 'p4', name: '최수아', avatar: 'CS', attended: false },
+  { id: 'p5', name: '정도현', avatar: 'JD', attended: true },
+  { id: 'p6', name: '한예린', avatar: 'HY', attended: false },
+  { id: 'p7', name: '오준서', avatar: 'OJ', attended: false },
+  { id: 'p8', name: '윤채원', avatar: 'YC', attended: true },
+  { id: 'p9', name: '임현우', avatar: 'IH', attended: false },
 ];
 
-export const RUNNING_RECORDS = [
-  { date: '2026-07-28', distance: 5.2, duration: 28, memo: '한강 나이트런' },
-  { date: '2026-07-25', distance: 10.0, duration: 58, memo: '서울숲 롱런' },
-  { date: '2026-07-22', distance: 3.5, duration: 21, memo: '가볍게 동네런' },
-  { date: '2026-07-18', distance: 7.8, duration: 45, memo: '올림픽공원' },
+export const RUN_RECORDS: RunRecord[] = [
+  { id: 'r1', date: '2026-07-29', distance: 5.2, duration: 31, pace: '5:58' },
+  { id: 'r2', date: '2026-07-26', distance: 7.0, duration: 44, pace: '6:17' },
+  { id: 'r3', date: '2026-07-22', distance: 3.5, duration: 24, pace: '6:51' },
+  { id: 'r4', date: '2026-07-19', distance: 10.0, duration: 62, pace: '6:12' },
+  { id: 'r5', date: '2026-07-14', distance: 5.0, duration: 30, pace: '6:00' },
 ];
 
-export const NOTICES = [
-  {
-    id: 'n1',
-    author: '김달리',
-    role: '리더',
-    avatar: 'A',
-    time: '2시간 전',
-    content: '이번 주 토요일 모임 장소가 변경됩니다! 여의도 물빛광장 -> 반포 한강공원 잔디마당으로 변경됩니다. 꼭 확인해주세요.',
-    likes: 12,
-    comments: 3,
-    liked: false,
-  },
-  {
-    id: 'n2',
-    author: '김달리',
-    role: '리더',
-    avatar: 'A',
-    time: '1일 전',
-    content: '7월 월간 러닝 결산! 이번 달 크루 총 누적 거리 423km 달성했습니다. 모두 수고하셨어요!',
-    likes: 24,
-    comments: 8,
-    liked: true,
-  },
-  {
-    id: 'n3',
-    author: '이속도',
-    role: '운영진',
-    avatar: 'B',
-    time: '3일 전',
-    content: '8월 정기 모임 일정 공지드립니다. 매주 화, 목 저녁 7:30, 토요일 아침 8:00 고정 운영 예정입니다.',
-    likes: 18,
-    comments: 5,
-    liked: false,
-  },
+export const MONTHLY_STATS = [
+  { month: '3월', km: 42 },
+  { month: '4월', km: 55 },
+  { month: '5월', km: 68 },
+  { month: '6월', km: 49 },
+  { month: '7월', km: 30.7 },
+];
+
+export const NOTICES: Notice[] = [
+  { id: 'n1', title: '8월 정기 크루런 안내', content: '이번 달 정기 크루런은 8월 10일(일) 오전 7시, 한강 여의도 공원에서 진행됩니다. 참가 신청은 앱 내 모임 탭에서 해주세요!', date: '2026-07-28', likes: 24, comments: 8, isPinned: true },
+  { id: 'n2', title: '크루 운동복 공동구매 마감 임박', content: '크루 단체 운동복 공동구매 마감이 8월 5일입니다. 미신청자는 서둘러 참여해 주세요.', date: '2026-07-25', likes: 15, comments: 5 },
+  { id: 'n3', title: '7월 러닝 챌린지 결과 발표', content: '7월 100km 달리기 챌린지 결과를 발표합니다. 1위: 김민준(127km), 2위: 박지훈(115km), 3위: 이서연(108km)!', date: '2026-07-20', likes: 41, comments: 18 },
 ];

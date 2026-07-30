@@ -1,11 +1,16 @@
-import { getLatestMeeting, getParticipants } from '@/lib/actions';
-import AttendanceClient from './_attendance-client';
+import { getMeetingById, getMeetingParticipants } from '@/app/actions/meetings';
+import AttendanceClient from './AttendanceClient';
 
-export const dynamic = 'force-dynamic';
-
-export default async function AttendancePage() {
-  const meeting = await getLatestMeeting();
-  const members = meeting ? await getParticipants(meeting.id) : [];
-
-  return <AttendanceClient meeting={meeting} initialMembers={members} />;
+export default async function AttendancePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ id?: string }>;
+}) {
+  const { id } = await searchParams;
+  const meetingId = id ? Number(id) : 1;
+  const [meeting, participants] = await Promise.all([
+    getMeetingById(meetingId),
+    getMeetingParticipants(meetingId),
+  ]);
+  return <AttendanceClient meeting={meeting} initialParticipants={participants} />;
 }
