@@ -2,24 +2,23 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const tabs = [
-  { href: '/page-1', icon: '🔍', label: '탐색' },
-  { href: '/page-2', icon: '📋', label: '모임' },
-  { href: '/page-3', icon: '✅', label: '출석' },
-  { href: '/page-4', icon: '📊', label: '기록' },
-  { href: '/page-5', icon: '📣', label: '공지' },
+const navItems = [
+  { href: '/jiyeok-peiseubyeol-moim-tamsaek-mich-pilteo', label: '탐색', icon: '🔍' },
+  { href: '/keuru-gongji-pideu', label: '피드', icon: '📣' },
+  { href: '/reoning-girok-ipryeokgwa-nujeok-geori-pyosi', label: '기록', icon: '📊' },
+  { href: '/chamgaja-myeongdan-johoe-mich-chulseok-chekeu-ri', label: '관리', icon: '✅' },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
   return (
-    <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#fff', borderTop: '1px solid #eee', display: 'flex', zIndex: 100 }}>
-      {tabs.map(t => {
-        const active = pathname === t.href;
+    <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, maxWidth: 480, margin: '0 auto', background: '#fff', borderTop: '1px solid #E5E7EB', display: 'flex', zIndex: 100 }}>
+      {navItems.map((item) => {
+        const active = pathname === item.href;
         return (
-          <Link key={t.href} href={t.href} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '8px 0 10px', textDecoration: 'none', color: active ? '#FF6B35' : '#999', fontSize: 11, fontWeight: active ? 700 : 400 }}>
-            <span style={{ fontSize: 22, marginBottom: 2 }}>{t.icon}</span>
-            {t.label}
+          <Link key={item.href} href={item.href} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px 0', textDecoration: 'none', color: active ? '#FF6B35' : '#9CA3AF', fontSize: 11, fontWeight: active ? 700 : 400 }}>
+            <span style={{ fontSize: 20, marginBottom: 2 }}>{item.icon}</span>
+            {item.label}
           </Link>
         );
       })}

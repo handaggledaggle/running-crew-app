@@ -1,60 +1,43 @@
-import { pgTable, text, integer, timestamp, boolean, real } from 'drizzle-orm/pg-core'
+import { pgTable, serial, text, integer, boolean, timestamp, real } from 'drizzle-orm/pg-core';
 
-export const users = pgTable('users', {
-  id: text('id').primaryKey(),
-  email: text('email').notNull().unique(),
-  name: text('name').notNull(),
-  neighborhood: text('neighborhood'),
-  avatarUrl: text('avatar_url'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-})
-
-export const meetings = pgTable('meetings', {
-  id: text('id').primaryKey(),
-  creatorId: text('creator_id').notNull(),
+export const meetups = pgTable('meetups', {
+  id: serial('id').primaryKey(),
   title: text('title').notNull(),
+  date: text('date').notNull(),
+  time: text('time').notNull(),
   location: text('location').notNull(),
   pace: text('pace').notNull(),
-  distanceKm: real('distance_km').notNull(),
-  dateTime: text('date_time').notNull(),
-  maxParticipants: integer('max_participants').notNull().default(10),
-  currentParticipants: integer('current_participants').notNull().default(0),
-  status: text('status').notNull().default('open'),
-  description: text('description'),
-  level: text('level').notNull().default('초급'),
-  area: text('area').notNull().default('서울'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-})
+  capacity: integer('capacity').notNull().default(10),
+  registered: integer('registered').notNull().default(0),
+  description: text('description').notNull().default(''),
+  leader: text('leader').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+});
 
-export const meetingParticipants = pgTable('meeting_participants', {
-  id: text('id').primaryKey(),
-  meetingId: text('meeting_id').notNull(),
-  userId: text('user_id').notNull(),
-  attended: boolean('attended').default(false).notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-})
+export const participants = pgTable('participants', {
+  id: serial('id').primaryKey(),
+  meetupId: integer('meetup_id').notNull(),
+  name: text('name').notNull(),
+  appliedAt: text('applied_at').notNull(),
+  attended: boolean('attended').notNull().default(false),
+});
 
-export const runningRecords = pgTable('running_records', {
-  id: text('id').primaryKey(),
-  userId: text('user_id').notNull(),
-  meetingId: text('meeting_id'),
-  distanceKm: real('distance_km').notNull(),
-  durationMinutes: integer('duration_minutes').notNull(),
-  memo: text('memo'),
-  recordedAt: text('recorded_at').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-})
+export const runRecords = pgTable('run_records', {
+  id: serial('id').primaryKey(),
+  date: text('date').notNull(),
+  distance: real('distance').notNull(),
+  duration: text('duration').notNull(),
+  avgPace: text('avg_pace').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+});
 
-export const announcements = pgTable('announcements', {
-  id: text('id').primaryKey(),
-  creatorId: text('creator_id').notNull(),
-  authorName: text('author_name').notNull(),
+export const notices = pgTable('notices', {
+  id: serial('id').primaryKey(),
+  author: text('author').notNull(),
+  date: text('date').notNull(),
   title: text('title').notNull(),
   content: text('content').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-})
-
-export type Meeting = typeof meetings.$inferSelect
-export type MeetingParticipant = typeof meetingParticipants.$inferSelect
-export type RunningRecord = typeof runningRecords.$inferSelect
-export type Announcement = typeof announcements.$inferSelect
+  likes: integer('likes').notNull().default(0),
+  comments: integer('comments').notNull().default(0),
+  createdAt: timestamp('created_at').defaultNow(),
+});
